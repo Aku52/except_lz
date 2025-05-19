@@ -3,12 +3,18 @@ import pandas as pd
 class FileHandler:
     def file_open(self):
         try:
-            self.df = pd.read_csv('var2.csv')
+            file_name = input(u'Введите имя файла: ')  # Запрашиваем имя файла у пользователя
+            if file_name != "var2.csv":
+                raise ValueError(u'Неверное имя файла')
+
+            self.df = pd.read_csv(file_name)
             print(u'Файл открыт')
-        except FileNotFoundError:
-            print(u'Не удалось открыть файл')
+
+        except (FileNotFoundError, ValueError) as e:
+            print(e)  # Выводим соответствующее сообщение об ошибке
         except Exception:
-            print(u'Неверное имя файла')
+            print(u'Не удалось открыть файл')
+
         
     def check_empty(self):
         try:
@@ -51,6 +57,7 @@ file_handler.check_header(["Участники гражданского обор
                            "Вид расчета","Место оплаты","Терминал оплаты","Дата оплаты","Время оплаты",
                            "Результат операции", "Cash-back","Сумма cash-back"])  
        
+
 
    
        
